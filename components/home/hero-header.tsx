@@ -99,18 +99,18 @@ export function HeroHeader({
           </div>
         </div>
 
-        <div className="flex items-center gap-3 py-1">
+        <div className="flex items-center gap-2 py-1">
           <Link
             href="mailto:contact@swagsxn.art"
             aria-label="Email"
-            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
+            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10  transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
           >
             <Image
               src="/icons/diamond-email.png"
               alt="Email"
               width={32}
               height={32}
-              className="size-7 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+              className="size-10 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
             />
           </Link>
           <Link
@@ -118,14 +118,14 @@ export function HeroHeader({
             target="_blank"
             rel="noreferrer"
             aria-label="YouTube"
-            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
+            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10  transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
           >
             <Image
               src="/icons/diamond-youtube.png"
               alt="YouTube"
               width={32}
               height={32}
-              className="size-7 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+              className="size-10 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
             />
           </Link>
           <Link
@@ -133,14 +133,14 @@ export function HeroHeader({
             target="_blank"
             rel="noreferrer"
             aria-label="Instagram"
-            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
+            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10  transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
           >
             <Image
               src="/icons/diamond-instagram.png"
               alt="Instagram"
               width={32}
               height={32}
-              className="size-7 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+              className="size-10 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
             />
           </Link>
           <Link
@@ -148,14 +148,14 @@ export function HeroHeader({
             target="_blank"
             rel="noreferrer"
             aria-label="TikTok"
-            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
+            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10  transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
           >
             <Image
               src="/icons/diamond-tiktok.png"
               alt="TikTok"
               width={32}
               height={32}
-              className="size-7 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+              className="size-10 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
             />
           </Link>
           <Link
@@ -163,14 +163,14 @@ export function HeroHeader({
             target="_blank"
             rel="noreferrer"
             aria-label="Spotify"
-            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
+            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10  transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
           >
             <Image
               src="/icons/diamond-spotify.png"
               alt="Spotify"
               width={32}
               height={32}
-              className="size-7 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+              className="size-10 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
             />
           </Link>
         </div>
