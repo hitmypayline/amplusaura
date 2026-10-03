@@ -1,7 +1,8 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import {
   Eye,
   CheckCircle2,
@@ -10,13 +11,6 @@ import {
   Volume2,
   VolumeX,
 } from "lucide-react"
-import {
-  FaYoutube,
-  FaInstagram,
-  FaTiktok,
-  FaSpotify,
-  FaEnvelope,
-} from "react-icons/fa6"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ProfileAvatar } from "./profile-avatar"
@@ -105,49 +99,79 @@ export function HeroHeader({
           </div>
         </div>
 
-        <div className="flex items-center gap-2.5 py-1">
+        <div className="flex items-center gap-3 py-1">
           <Link
             href="mailto:contact@swagsxn.art"
             aria-label="Email"
-            className="p-2.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 text-white/90 hover:text-white transition-all"
+            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
           >
-            <FaEnvelope className="size-4" />
+            <Image
+              src="/icons/diamond-email.png"
+              alt="Email"
+              width={32}
+              height={32}
+              className="size-7 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+            />
           </Link>
           <Link
             href="https://youtube.com"
             target="_blank"
             rel="noreferrer"
             aria-label="YouTube"
-            className="p-2.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 text-white/90 hover:text-white transition-all"
+            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
           >
-            <FaYoutube className="size-4" />
+            <Image
+              src="/icons/diamond-youtube.png"
+              alt="YouTube"
+              width={32}
+              height={32}
+              className="size-7 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+            />
           </Link>
           <Link
             href="https://instagram.com"
             target="_blank"
             rel="noreferrer"
             aria-label="Instagram"
-            className="p-2.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 text-white/90 hover:text-white transition-all"
+            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
           >
-            <FaInstagram className="size-4" />
+            <Image
+              src="/icons/diamond-instagram.png"
+              alt="Instagram"
+              width={32}
+              height={32}
+              className="size-7 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+            />
           </Link>
           <Link
             href="https://tiktok.com"
             target="_blank"
             rel="noreferrer"
             aria-label="TikTok"
-            className="p-2.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 text-white/90 hover:text-white transition-all"
+            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
           >
-            <FaTiktok className="size-4" />
+            <Image
+              src="/icons/diamond-tiktok.png"
+              alt="TikTok"
+              width={32}
+              height={32}
+              className="size-7 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+            />
           </Link>
           <Link
             href="https://spotify.com"
             target="_blank"
             rel="noreferrer"
             aria-label="Spotify"
-            className="p-2.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 text-white/90 hover:text-white transition-all"
+            className="group relative p-1.5 rounded-full bg-transparent hover:bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center"
           >
-            <FaSpotify className="size-4" />
+            <Image
+              src="/icons/diamond-spotify.png"
+              alt="Spotify"
+              width={32}
+              height={32}
+              className="size-7 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-transform duration-300 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+            />
           </Link>
         </div>
 
@@ -173,4 +197,3 @@ export function HeroHeader({
     </header>
   )
 }
-
