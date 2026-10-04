@@ -19,7 +19,7 @@ export const VideoBackground = forwardRef<HTMLVideoElement, VideoBackgroundProps
           preload="auto"
           className="absolute inset-0 h-full w-full object-cover"
         >
-          <source src="/video.mp4" type="video/mp4" />
+          <source src="https://wck2rhqn5tmgiskj.public.blob.vercel-storage.com/Video%20Apr%2003%202026%2C%2011%2007%2048%20Pm.mp4" type="video/mp4" />
         </video>
       </div>
     )
