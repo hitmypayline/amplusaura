@@ -1,6 +1,6 @@
-"use client"
+﻿"use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { VideoBackground } from "./video-background"
 import { HeroHeader } from "./hero-header"
 import { MediaCatalog } from "./media-catalog"
@@ -16,7 +16,8 @@ export function HomeView() {
     tier: "free",
     email: null,
     activeUntil: null,
-    autoRenew: true,
+    autoRenew: false,
+    purchasedItemIds: [],
   })
 
   const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false)
@@ -29,6 +30,17 @@ export function HomeView() {
   const [selectedVideoItem, setSelectedVideoItem] = useState<MediaItem | null>(null)
 
   const videoRef = useRef<HTMLVideoElement | null>(null)
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.subscription) {
+          setSubscription(data.subscription)
+        }
+      })
+      .catch(() => {})
+  }, [])
 
   const handleToggleMute = () => {
     if (videoRef.current) {
@@ -90,49 +102,44 @@ export function HomeView() {
     email: string,
     itemId?: string
   ) => {
-    const nextYear = new Date()
-    nextYear.setFullYear(nextYear.getFullYear() + 1)
+    fetch("/api/auth/me")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.subscription) {
+          setSubscription(data.subscription)
+        } else {
+          setSubscription((prev) => {
+            const updated = itemId
+              ? Array.from(new Set([...(prev.purchasedItemIds ?? []), itemId]))
+              : prev.purchasedItemIds
 
-    setSubscription((prev) => {
-      const updatedPurchased = itemId
-        ? Array.from(new Set([...(prev.purchasedItemIds ?? []), itemId]))
-        : prev.purchasedItemIds
+            return {
+              ...prev,
+              tier: tier !== "free" ? tier : prev.tier,
+              email,
+              purchasedItemIds: updated,
+            }
+          })
+        }
+      })
+      .catch(() => {
+        setSubscription((prev) => {
+          const updated = itemId
+            ? Array.from(new Set([...(prev.purchasedItemIds ?? []), itemId]))
+            : prev.purchasedItemIds
 
-      return {
-        ...prev,
-        tier: tier !== "free" ? tier : prev.tier,
-        email,
-        activeUntil:
-          tier === "yearly"
-            ? nextYear.toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              })
-            : prev.activeUntil,
-        autoRenew: tier === "yearly",
-        purchasedItemIds: updatedPurchased,
-      }
-    })
+          return {
+            ...prev,
+            tier: tier !== "free" ? tier : prev.tier,
+            email,
+            purchasedItemIds: updated,
+          }
+        })
+      })
   }
 
-  const handleSignInMock = (email: string, tier: SubscriptionTier) => {
-    const nextYear = new Date()
-    nextYear.setFullYear(nextYear.getFullYear() + 1)
-
-    setSubscription({
-      tier,
-      email,
-      activeUntil:
-        tier === "yearly"
-          ? nextYear.toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })
-          : null,
-      autoRenew: true,
-    })
+  const handleSignInSuccess = (sub: UserSubscription) => {
+    setSubscription(sub)
   }
 
   const handleSignOut = () => {
@@ -140,7 +147,8 @@ export function HomeView() {
       tier: "free",
       email: null,
       activeUntil: null,
-      autoRenew: true,
+      autoRenew: false,
+      purchasedItemIds: [],
     })
   }
 
@@ -191,6 +199,7 @@ export function HomeView() {
           setIsSubscriptionModalOpen(false)
         }}
         item={selectedPaymentItem}
+        currentEmail={subscription.email}
         onSuccessfulSubscription={handleSuccessfulSubscription}
       />
 
@@ -198,7 +207,7 @@ export function HomeView() {
         isOpen={isMemberModalOpen}
         onClose={() => setIsMemberModalOpen(false)}
         subscription={subscription}
-        onSignInMock={handleSignInMock}
+        onSignInSuccess={handleSignInSuccess}
         onSignOut={handleSignOut}
       />
 

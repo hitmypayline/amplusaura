@@ -1,6 +1,6 @@
-"use client"
+﻿"use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Play, Pause, X, Lock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -23,24 +23,55 @@ export function AudioPlayerBar({
   onClose,
   onOpenSubscription,
 }: AudioPlayerBarProps) {
-  const [progress, setProgress] = useState(15)
+  const [progress, setProgress] = useState(0)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+
+  const isPurchased = (subscription.purchasedItemIds ?? []).includes(item?.id ?? "")
+  const isUnlocked = !item?.isExclusive || isPurchased
+  const isPreview = !isUnlocked
+
+  const audioSrc = item ? `/api/media/${item.id}/stream` : ""
 
   useEffect(() => {
-    if (!isPlaying) return
-    const interval = setInterval(() => {
-      setProgress((prev) => (prev >= 100 ? 0 : prev + 1))
-    }, 400)
-    return () => clearInterval(interval)
-  }, [isPlaying])
+    if (!audioRef.current || !item) return
+
+    if (isPlaying) {
+      const playPromise = audioRef.current.play()
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.warn("Audio autoplay prevented or error:", err)
+        })
+      }
+    } else {
+      audioRef.current.pause()
+    }
+  }, [isPlaying, item?.id])
+
+  const handleTimeUpdate = () => {
+    if (!audioRef.current) return
+    const current = audioRef.current.currentTime
+    const duration = audioRef.current.duration || 1
+    setProgress((current / duration) * 100)
+  }
 
   if (!item) return null
 
-  const isPurchased = (subscription.purchasedItemIds ?? []).includes(item.id)
-  const isUnlocked = !item.isExclusive || isPurchased
-  const isPreview = !isUnlocked
-
   return (
     <div className="fixed bottom-4 inset-x-0 mx-auto max-w-xl px-4 z-40 animate-in fade-in slide-in-from-bottom-3 duration-200">
+      <audio
+        ref={audioRef}
+        src={audioSrc}
+        preload="auto"
+        onTimeUpdate={handleTimeUpdate}
+        onEnded={() => {
+          setProgress(0)
+          onTogglePlay()
+        }}
+        onError={(e) => {
+          console.error("Audio playback error on element:", e.currentTarget.error)
+        }}
+      />
+
       <div className="bg-black/60 backdrop-blur-2xl border border-white/20 rounded-xl p-3 shadow-2xl flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
           <Button
@@ -59,17 +90,17 @@ export function AudioPlayerBar({
 
           <div className="min-w-0 space-y-0.5">
             <div className="flex items-center gap-2">
-              <p className="text-xs font-semibold text-foreground truncate">
+              <p className="text-xs font-semibold text-white truncate">
                 {item.title}
               </p>
               {isPreview ? (
-                <Badge variant="outline" className="text-[9px] px-1 py-0 h-3.5">
+                <Badge variant="outline" className="text-[9px] px-1 py-0 h-3.5 text-white/70 border-white/20">
                   Preview
                 </Badge>
               ) : (
                 <Badge
                   variant="secondary"
-                  className="text-[9px] px-1 py-0 h-3.5 text-emerald-500"
+                  className="text-[9px] px-1 py-0 h-3.5 text-emerald-400 bg-emerald-500/10 border border-emerald-500/20"
                 >
                   Unlocked
                 </Badge>
@@ -83,7 +114,7 @@ export function AudioPlayerBar({
                   style={{ width: `${progress}%` }}
                 />
               </div>
-              <span className="text-[10px] text-muted-foreground font-mono">
+              <span className="text-[10px] text-white/60 font-mono">
                 {item.duration}
               </span>
             </div>

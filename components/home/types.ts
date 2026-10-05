@@ -1,4 +1,4 @@
-export type MediaType = "song" | "video"
+﻿export type MediaType = "song" | "video"
 
 export interface MediaItem {
   id: string
@@ -12,6 +12,7 @@ export interface MediaItem {
   tags?: string[]
   price: number
   thumbnailUrl?: string
+  streamUrl?: string
 }
 
 export type SubscriptionTier = "free" | "yearly" | "lifetime"
@@ -23,4 +24,3 @@ export interface UserSubscription {
   autoRenew: boolean
   purchasedItemIds?: string[]
 }
-
