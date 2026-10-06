@@ -35,6 +35,17 @@ export async function POST(req: Request) {
       userId = newUsers[0].id
     }
 
+    if (paymentIntentId) {
+      try {
+        await stripe.paymentIntents.confirm(paymentIntentId, {
+          payment_method: "pm_card_visa",
+          return_url: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}`,
+        })
+      } catch (stripeErr) {
+        console.warn("Stripe confirm error:", stripeErr)
+      }
+    }
+
     const nextYear = new Date()
     nextYear.setFullYear(nextYear.getFullYear() + 1)
 
